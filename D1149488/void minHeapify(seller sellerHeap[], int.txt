@@ -1,0 +1,48 @@
+item *insertBST(item *root)
+{
+    if (root == NULL)
+    {
+        item *newItem = (item *)malloc(sizeof(item));
+        strcpy(newItem->itemName, Item.itemName);
+        newItem->Lchild = newItem->Rchild = NULL;
+        strcpy(newItem->sellerHeap[0].sellerID, Seller.sellerID);
+        newItem->sellerHeap[0].price = Seller.price;
+        newItem->sellerHeapSize = 1; // Initialize heap size
+        return newItem;
+    }
+
+    if (strcmp(Item.itemName, root->itemName) < 0)
+    {
+        root->Lchild = insertBST(root->Lchild);
+    }
+    else if (strcmp(Item.itemName, root->itemName) > 0)
+    {
+        root->Rchild = insertBST(root->Rchild);
+    }
+    else
+    {
+        // Item with the same name already exists, insert into the min heap
+        if (root->sellerHeapSize == 8)
+        {
+            printf("Min Heap is full. Cannot insert more sellers.\n");
+            return root;
+        }
+
+        strcpy(root->sellerHeap[root->sellerHeapSize].sellerID, Seller.sellerID);
+        root->sellerHeap[root->sellerHeapSize].price = Seller.price;
+        (root->sellerHeapSize)++;
+
+        int currentIndex = root->sellerHeapSize - 1;
+        while (currentIndex != 0 && root->sellerHeap[currentIndex].price < root->sellerHeap[(currentIndex - 1) / 2].price)
+        {
+            // Swap with the parent if the current seller's price is smaller
+            seller temp = root->sellerHeap[currentIndex];
+            root->sellerHeap[currentIndex] = root->sellerHeap[(currentIndex - 1) / 2];
+            root->sellerHeap[(currentIndex - 1) / 2] = temp;
+            currentIndex = (currentIndex - 1) / 2;
+        }
+        minHeapify(root->sellerHeap, root->sellerHeapSize, currentIndex);
+    }
+
+    return root;
+}

@@ -1,0 +1,7 @@
+Book doesn't exist!
+Book GiGi 180
+Book Jack02 300
+CD Mary 280
+Book Jacky08 320
+TV Ripple 14500
+Phone Petter 5000

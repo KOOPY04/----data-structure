@@ -1,0 +1,9 @@
+insert CD Mary 280
+insert TV John 20000
+sort
+insert Book Jacky08 220 
+insert Book Jacky01 200
+sort
+insert Banana Tim 20
+insert Apple Koopy 10
+sort
